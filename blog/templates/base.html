@@ -24,6 +24,9 @@
     <!--[if lt IE 9]>
     <script src="{{ url_for('static',filename='js/respond.js') }}"></script>
     <![endif]-->
+    {% block header %}
+
+    {% endblock %}
 
 </head>
 <body>
@@ -77,19 +80,20 @@
             </div>
         </div>
     </header>
-
+    {% block center %}
     <div class="widewrapper main">
         <div class="container">
             <div class="row">
                 <div class="col-md-8 blog-main">
-                     {% block content %}
+                    <div class="row">
+                     {% block context %}
 
                      {% endblock %}
+                    </div>
                     <div class="paging">
                         <a href="#" class="older">Older Post</a>
                     </div>
                 </div>
-
                 <aside class="col-md-4 blog-aside">
                     {% block aside %}
 
@@ -98,6 +102,7 @@
             </div>
         </div>
     </div>
+    {% endblock %}
 
     <footer>
         <div class="widewrapper footer">
@@ -140,6 +145,8 @@
     <script src="{{ url_for('static',filename='js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
     <script src="{{ url_for('static',filename='js/modernizr.js') }}"></script>
+    {% block add_js %}
 
+    {% endblock %}
 </body>
 </html>

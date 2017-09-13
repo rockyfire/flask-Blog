@@ -38,20 +38,15 @@ class Post(db.Model):
     tag=db.relationship(Tag,secondary=tag_post,
                         backref=db.backref("post_tag",lazy='dynamic'))
 
-    def __init__(self,title,body,modified_time,category,create_time=None):
+    def __init__(self,title,body,modified_time,create_time=None):
         self.title=title
         self.body=body
         if create_time is None:
             self.create_time=datetime.utcnow()
         self.modified_time=modified_time
-        self.category=category
 
     def __repr__(self):
         return '<User %r>' % self.title
-
-    def get_recent_posts(num=5):
-        return Post.query.all().order_by('-created_time')[:num]
-
 
 
 
