@@ -34,7 +34,9 @@ class Post(db.Model):
 
     category_id=db.Column(db.Integer,db.ForeignKey('category.id'),nullable=False)
     category=db.relationship(Category,backref=db.backref('post_category',lazy='dynamic'))
-    tag=db.relationship(Tag,secondary=tag_post,backref=db.backref("post_tag",lazy='dynamic'))
+
+    tag=db.relationship(Tag,secondary=tag_post,
+                        backref=db.backref("post_tag",lazy='dynamic'))
 
     def __init__(self,title,body,modified_time,category,create_time=None):
         self.title=title
@@ -46,6 +48,11 @@ class Post(db.Model):
 
     def __repr__(self):
         return '<User %r>' % self.title
+
+    def get_recent_posts(num=5):
+        return Post.query.all().order_by('-created_time')[:num]
+
+
 
 
 

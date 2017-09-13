@@ -3,6 +3,7 @@ from flask_bootstrap import Bootstrap
 from flask_mail import Mail,Message
 from flask_moment import Moment
 from flask_sqlalchemy import SQLAlchemy
+# from flaskext.markdown import Markdown,Extension
 # from flask_login import LoginManager
 from config import config
 
@@ -25,6 +26,7 @@ def create_blog(config_name):
     mail.init_app(app)
     moment.init_app(app)
     db.init_app(app)
+    # Markdown(app)
     # login_manager.init_app(app)
 
     from .main import main as main_blueprint

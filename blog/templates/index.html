@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 col-sm-6">
+            {% for post in post_list %}
+                <article class=" blog-teaser post-{{ post.pk }}">
+                    <header>
+                        <img src="{{ url_for('static',filename='img/1.jpg') }}" alt="">
+                        <h3><a href="{{ url_for('main.detail',pk=post.id) }}">{{ post.title }}</a></h3>
+                        <span class="meta">{{ post.tag[0].name }} {{ post.create_time }}, by -----------------</span>
+                        <hr>
+                    </header>
+                    {% else %}
+                    <div class="no-post">暂时没有发布的文章</div>
+                </article>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block aside %}
+    <div class="aside-widget">
+        <header>
+            <h3>Featured Post</h3>
+        </header>
+        <div class="body">
+            <ul class="clean-list">
+                <li><a href="">Clean - Responsive HTML5 Template</a></li>
+                <li><a href="">Responsive Pricing Table</a></li>
+                <li><a href="">Yellow HTML5 Template</a></li>
+                <li><a href="">Blackor Responsive Theme</a></li>
+                <li><a href="">Portfolio Bootstrap Template</a></li>
+                <li><a href="">Clean Slider Template</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="aside-widget">
+        <header>
+            <h3>Related Post</h3>
+        </header>
+        <div class="body">
+            <ul class="clean-list">
+                <li><a href="">Blackor Responsive Theme</a></li>
+                <li><a href="">Portfolio Bootstrap Template</a></li>
+                <li><a href="">Clean Slider Template</a></li>
+             </ul>
+        </div>
+    </div>
+    <div class="aside-widget">
+        <header>
+            <h3>Tags</h3>
+        </header>
+        <div class="body clearfix">
+            <ul class="tags">
+                <li><a href="#">HTML5</a></li>
+                <li><a href="#">CSS3</a></li>
+                <li><a href="#">COMPONENTS</a></li>
+                <li><a href="#">TEMPLATE</a></li>
+             </ul>
+        </div>
+    </div>
+{% endblock %}
