@@ -32,8 +32,8 @@ def create_blog(config_name):
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
-    # from .auth import auth as auth_blueprint
-    # app.register_blueprint(auth_blueprint, url_prefix='/auth')
+    from .comment import comment as auth_blueprint
+    app.register_blueprint(auth_blueprint, url_prefix='/comment')
 
     return app
 

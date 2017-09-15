@@ -7,6 +7,7 @@ class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     # 其他数据类型 http://flask-sqlalchemy.pocoo.org/2.1/models/?highlight=string
     name=db.Column(db.String(100))
+    # 打印一个对象的时候会用对象里的__repr__函数进行格式化后再输出,__repr__一般会返回一个可以作为代码执行的字符串
     def __repr__(self):
         return '<User %r>' % self.name
 
@@ -49,15 +50,15 @@ class Post(db.Model):
         return '<User %r>' % self.title
 
 
+class Comment(db.Model):
+    __tablename__ = 'Comment'
+    id=db.Column(db.Integer, primary_key=True)
+    name=db.Column(db.String(100))
+    email=db.Column(db.String(100))
+    context=db.Column(db.Text)
+    create_time=db.Column(db.DateTime(),default=datetime.utcnow)
 
-
-
-
-
-
-
-
-
-
-
-
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
+    post = db.relationship(Post, backref=db.backref('comment_post', lazy='dynamic'))
+    def __repr__(self):
+        return '<User %r>' % self.title

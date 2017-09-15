@@ -2,7 +2,7 @@ from flask import  render_template,redirect,url_for
 from . import main
 from ..models import Tag,Post,Category
 import markdown
-from ..forms import AddPostForm
+from ..forms import AddPostForm,CommentForm
 from datetime import datetime
 from .. import db
 
@@ -21,14 +21,15 @@ def category(pk):
 @main.route('/post/<pk>')
 def detail(pk):
     post=Post.query.get_or_404(pk)
+    comment_list = post.comment_post
     post.body=markdown.markdown(post.body,
                                   extensions=[
                                      'markdown.extensions.extra',
                                      'markdown.extensions.codehilite',
                                      'markdown.extensions.toc',
                                   ])
-
-    return render_template('main/detail.html',post=post)
+    form=CommentForm()
+    return render_template('main/detail.html',post=post,comment_list=comment_list,form=form)
 
 
 @main.route('/add',methods=['GET','POST'])

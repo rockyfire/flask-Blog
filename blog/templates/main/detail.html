@@ -2,6 +2,59 @@
 
 {% block context %}
     <p>{{ post.body|safe  }}</p>
+
+    <ul class="comment-list list-unstyled">
+        <h3>评论列表，共 <span>{{ post.comment_post.count() }}</span> 条评论</h3>
+      {% for comment in comment_list %}
+      <li class="comment-item">
+
+          <span class="nickname">评论者 {{ comment.name }}</span>
+          <time class="submit-date">发表时间  {{ comment.create_time }}</time>
+          <hr/>
+          <div class="text">
+                发表内容
+             {{ comment.context }}
+          </div>
+      </li>
+      {% else %}
+        暂无评论
+      {% endfor %}
+
+    <div class="row">
+        <form action="{{ url_for('comment.post_comment',post_pk=post.id) }}" method="post">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.name.label }}
+                {% if form.name.errors %}
+                    {% for e in form.name.errors %}
+                        <p class="help-block">{{ e }}</p>
+                        {% endfor %}
+                {% endif %}
+                {{ form.name(class_='form-control') }}
+            </div>
+            <div class="form-group">
+                {{ form.email.label }}
+                {% if form.email.errors %}
+                    {% for e in form.email.errors %}
+                        <p class="help-block">{{ e }}</p>
+                        {% endfor %}
+                {% endif %}
+                {{ form.email(class_='form-control') }}
+            </div>
+            <div class="form-group">
+                {{ form.context.label }}
+                {% if form.context.errors %}
+                    {% for e in form.context.errors %}
+                        <p class="help-block">{{ e }}</p>
+                        {% endfor %}
+                {% endif %}
+                {{ form.context(class_='form-control') }}
+            </div>
+            <input type="submit" class="btn btn-primary" value="提交">
+        </form>
+    </div>
+
+    </ul>
 {% endblock %}
 
 {% block aside %}
